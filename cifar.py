@@ -303,7 +303,9 @@ def test(testloader, model, criterion, epoch, use_cuda):
 
         if use_cuda:
             inputs, targets = inputs.cuda(), targets.cuda()
-        inputs, targets = torch.autograd.Variable(inputs, volatile=True), torch.autograd.Variable(targets)
+        with torch.no_grad():
+            inputs, targets = torch.autograd.Variable(inputs), torch.autograd.Variable(targets)
+
 
         # compute output
         outputs = model(inputs)
